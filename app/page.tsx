@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { LayoutBuilder } from "@/components/layout-builder"
 import { CodePreview } from "@/components/code-preview"
 import { AccessibilityChecker } from "@/components/accessibility-checker"
+import { GridVisualEditor } from "@/components/grid-visual-editor"
 import { Layout, Code, Accessibility } from "lucide-react"
 
 export interface GridConfig {
@@ -122,7 +123,37 @@ export default function HomePage() {
         Skip to main content
       </a>
 
-     
+      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Layout className="h-6 w-6 text-primary" />
+              <h1 className="text-2xl font-bold">Grid Layout Builder</h1>
+              <Badge variant="secondary">WCAG 2.2.1</Badge>
+              <Badge variant="outline">CSS Grid</Badge>
+            </div>
+            <nav aria-label="Main navigation">
+              <ul className="flex items-center space-x-4">
+                <li>
+                  <Button variant="ghost" size="sm">
+                    Templates
+                  </Button>
+                </li>
+                <li>
+                  <Button variant="ghost" size="sm">
+                    Documentation
+                  </Button>
+                </li>
+                <li>
+                  <Button variant="ghost" size="sm">
+                    About
+                  </Button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
 
       <main id="main-content" className="container mx-auto px-4 py-8">
         <div className="mb-8">
@@ -160,7 +191,7 @@ export default function HomePage() {
                     <CardDescription>See how your grid layout adapts across different screen sizes</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <GridLayoutPreview config={layoutConfig} />
+                    <GridVisualEditor config={layoutConfig} onConfigChange={setLayoutConfig} />
                   </CardContent>
                 </Card>
               </div>
@@ -179,128 +210,59 @@ export default function HomePage() {
 
       <footer className="border-t bg-muted/30 mt-16">
         <div className="container mx-auto px-4 py-8">
-          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="font-semibold mb-4">Grid Layout Builder</h3>
+              <p className="text-sm text-muted-foreground">
+                Build responsive, accessible CSS Grid layouts with custom breakpoints and WCAG 2.2.1 compliance.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Resources</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a href="#" className="text-muted-foreground hover:text-foreground">
+                    CSS Grid Guide
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-muted-foreground hover:text-foreground">
+                    Responsive Design
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-muted-foreground hover:text-foreground">
+                    WCAG Guidelines
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">Support</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a href="#" className="text-muted-foreground hover:text-foreground">
+                    Help Center
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-muted-foreground hover:text-foreground">
+                    Community
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-muted-foreground hover:text-foreground">
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
           <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
             <p>&copy; 2024 Grid Layout Builder. Built with accessibility and modern CSS in mind.</p>
           </div>
         </div>
       </footer>
-    </div>
-  )
-}
-
-function GridLayoutPreview({ config }: { config: LayoutConfig }) {
-  const [activeBreakpoint, setActiveBreakpoint] = useState<"mobile" | "tablet" | "desktop">("desktop")
-
-  const currentGrid = config.breakpoints[activeBreakpoint].grid
-
-  const getGridStyle = () => {
-    return {
-      display: "grid",
-      gridTemplateColumns: `repeat(${currentGrid.columns}, 1fr)`,
-      gridTemplateRows: `repeat(${currentGrid.rows}, minmax(60px, auto))`,
-      gap: `${currentGrid.gap}px`,
-      minHeight: "300px",
-      border: "2px dashed #e2e8f0",
-      borderRadius: "8px",
-      padding: "16px",
-      backgroundColor: "#f8fafc",
-    }
-  }
-
-  const getAreaStyle = (area: string) => {
-    return {
-      gridArea: area,
-      padding: "12px",
-      borderRadius: "6px",
-      fontSize: "12px",
-      fontWeight: "600",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      textAlign: "center" as const,
-    }
-  }
-
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="flex space-x-2">
-          {(["mobile", "tablet", "desktop"] as const).map((breakpoint) => (
-            <Button
-              key={breakpoint}
-              variant={activeBreakpoint === breakpoint ? "default" : "outline"}
-              size="sm"
-              onClick={() => setActiveBreakpoint(breakpoint)}
-            >
-              {config.breakpoints[breakpoint].name}
-              <span className="ml-1 text-xs opacity-70">{config.breakpoints[breakpoint].minWidth}px+</span>
-            </Button>
-          ))}
-        </div>
-        <div className="text-sm text-muted-foreground">
-          {currentGrid.columns} × {currentGrid.rows} grid, {currentGrid.gap}px gap
-        </div>
-      </div>
-
-      <div style={getGridStyle()}>
-        {config.hasHeader && currentGrid.areas.header && (
-          <div style={{ ...getAreaStyle(currentGrid.areas.header), backgroundColor: "#dbeafe", color: "#1e40af" }}>
-            <div>
-              <div className="font-semibold">{"<header>"}</div>
-              <div className="text-xs opacity-80">Site Header</div>
-            </div>
-          </div>
-        )}
-
-        {config.hasNavigation && currentGrid.areas.navigation && (
-          <div style={{ ...getAreaStyle(currentGrid.areas.navigation), backgroundColor: "#dcfce7", color: "#166534" }}>
-            <div>
-              <div className="font-semibold">{"<nav>"}</div>
-              <div className="text-xs opacity-80">Navigation</div>
-            </div>
-          </div>
-        )}
-
-        {config.hasSidebar && currentGrid.areas.sidebar && (
-          <div style={{ ...getAreaStyle(currentGrid.areas.sidebar), backgroundColor: "#fef3c7", color: "#92400e" }}>
-            <div>
-              <div className="font-semibold">{"<aside>"}</div>
-              <div className="text-xs opacity-80">Sidebar</div>
-            </div>
-          </div>
-        )}
-
-        <div style={{ ...getAreaStyle(currentGrid.areas.main), backgroundColor: "#f0fdf4", color: "#166534" }}>
-          <div>
-            <div className="font-semibold">{"<main>"}</div>
-            <div className="text-xs opacity-80">Main Content</div>
-          </div>
-        </div>
-
-        {config.hasFooter && currentGrid.areas.footer && (
-          <div style={{ ...getAreaStyle(currentGrid.areas.footer), backgroundColor: "#f3e8ff", color: "#7c3aed" }}>
-            <div>
-              <div className="font-semibold">{"<footer>"}</div>
-              <div className="text-xs opacity-80">Footer</div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded">
-        <strong>Grid Areas:</strong>{" "}
-        {Object.entries(currentGrid.areas)
-          .filter(([key]) => {
-            if (key === "header") return config.hasHeader
-            if (key === "navigation") return config.hasNavigation
-            if (key === "sidebar") return config.hasSidebar
-            if (key === "footer") return config.hasFooter
-            return true
-          })
-          .map(([key, value]) => `${key}: ${value}`)
-          .join(" | ")}
-      </div>
     </div>
   )
 }
