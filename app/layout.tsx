@@ -4,9 +4,9 @@ import { GeistMono } from 'geist/font/mono'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.app',
+  title: 'gridable layout builder',
+  description: 'accessible css grid layout builder',
+  generator: 'version 0.1.0',
 }
 
 export default function RootLayout({

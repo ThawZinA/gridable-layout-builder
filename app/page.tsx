@@ -128,29 +128,10 @@ export default function HomePage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Layout className="h-6 w-6 text-primary" />
-              <h1 className="text-2xl font-bold">Grid Layout Builder</h1>
+              <h1 className="text-2xl font-bold">Gridable</h1>
               <Badge variant="secondary">WCAG 2.2.1</Badge>
               <Badge variant="outline">CSS Grid</Badge>
             </div>
-            <nav aria-label="Main navigation">
-              <ul className="flex items-center space-x-4">
-                <li>
-                  <Button variant="ghost" size="sm">
-                    Templates
-                  </Button>
-                </li>
-                <li>
-                  <Button variant="ghost" size="sm">
-                    Documentation
-                  </Button>
-                </li>
-                <li>
-                  <Button variant="ghost" size="sm">
-                    About
-                  </Button>
-                </li>
-              </ul>
-            </nav>
           </div>
         </div>
       </header>
@@ -210,54 +191,6 @@ export default function HomePage() {
 
       <footer className="border-t bg-muted/30 mt-16">
         <div className="container mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="font-semibold mb-4">Grid Layout Builder</h3>
-              <p className="text-sm text-muted-foreground">
-                Build responsive, accessible CSS Grid layouts with custom breakpoints and WCAG 2.2.1 compliance.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground">
-                    CSS Grid Guide
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground">
-                    Responsive Design
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground">
-                    WCAG Guidelines
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground">
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground">
-                    Community
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-muted-foreground hover:text-foreground">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
           <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
             <p>&copy; 2024 Grid Layout Builder. Built with accessibility and modern CSS in mind.</p>
           </div>
